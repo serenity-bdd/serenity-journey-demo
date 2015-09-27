@@ -1,4 +1,4 @@
-package net.serenitybdd.demos.todos.features.stepdefinitions;
+package net.serenitybdd.demos.todos.cucumber.stepdefinitions;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

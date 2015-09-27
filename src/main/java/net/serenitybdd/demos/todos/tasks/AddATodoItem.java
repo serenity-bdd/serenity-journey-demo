@@ -1,14 +1,14 @@
 package net.serenitybdd.demos.todos.tasks;
 
 import net.serenitybdd.demos.todos.pages.components.ToDoList;
-import net.serenitybdd.demos.todos.tasks.interactions.Hit;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.tasks.Enter;
+import net.serenitybdd.screenplay.tasks.Hit;
 import net.thucydides.core.annotations.Step;
-import org.openqa.selenium.Keys;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
+import static org.openqa.selenium.Keys.RETURN;
 
 public class AddATodoItem implements Performable {
 
@@ -17,8 +17,9 @@ public class AddATodoItem implements Performable {
     @Step("{0} adds a todo item called #thingToDo")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-                Enter.theValue(thingToDo).into(ToDoList.NEW_TODO),
-                Hit.the(Keys.RETURN).into(ToDoList.NEW_TODO));
+                Enter.theValue(thingToDo).into(ToDoList.NEW_TODO_FIELD),
+                Hit.the(RETURN).keyIn(ToDoList.NEW_TODO_FIELD)
+        );
     }
 
     public AddATodoItem(String thingToDo) {

@@ -1,4 +1,4 @@
-package net.serenitybdd.demos.todos;
+package net.serenitybdd.demos.todos.tasks;
 
 import net.serenitybdd.demos.todos.pages.components.ToDoList;
 import net.serenitybdd.screenplay.Actor;

@@ -1,4 +1,4 @@
-package net.serenitybdd.demos.todos;
+package net.serenitybdd.demos.todos.tasks;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.demos.todos.pages.components.ToDoList;

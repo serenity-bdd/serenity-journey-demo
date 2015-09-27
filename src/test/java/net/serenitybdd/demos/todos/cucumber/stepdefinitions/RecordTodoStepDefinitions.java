@@ -1,11 +1,10 @@
-package net.serenitybdd.demos.todos.features.stepdefinitions;
+package net.serenitybdd.demos.todos.cucumber.stepdefinitions;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.demos.todos.features.serenitysteps.ATodoUser;
+import net.serenitybdd.demos.todos.serenity.ATodoUser;
 import net.serenitybdd.demos.todos.model.TodoStatusFilter;
-import net.serenitybdd.demos.todos.pages.TodoPage;
 import net.thucydides.core.annotations.Steps;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -4,7 +4,7 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.screenplay.targets.Target;
 
 public class ToDoList {
-    public static Target NEW_TODO = Target.the("New Todo Field").locatedBy("#new-todo");
+    public static Target NEW_TODO_FIELD = Target.the("New Todo Field").locatedBy("#new-todo");
     public static String TODO_ITEMS = ".view label";
 
     public static Target deleteButtonForItem(String itemName) {

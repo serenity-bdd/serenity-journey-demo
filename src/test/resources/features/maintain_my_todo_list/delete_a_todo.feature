@@ -3,11 +3,11 @@ Feature: Delete a todo
 
   Scenario: Delete an active todo
     Given Jane has a todo list containing Buy some milk, Buy Petrol
-    When she deletes the todo action Buy some milk
-    Then her todo list should contain Buy Petrol
+    When Jane deletes the todo action Buy some milk
+    Then Jane's todo list should contain Buy Petrol
 
   Scenario: Delete a completed todo
     Given Joe has a todo list containing Buy some milk,Buy Petrol
-    And he has marked the Buy some milk action as complete
-    When he deletes the todo action Buy some milk
-    Then his todo list should contain Buy Petrol
+    And Joe has marked the Buy some milk action as complete
+    When Joe deletes the todo action Buy some milk
+    Then Joe's todo list should contain Buy Petrol

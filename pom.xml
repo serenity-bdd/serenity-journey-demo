@@ -11,8 +11,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>1.1.14-SNAPSHOT</serenity.version>
-        <serenity.maven.version>1.1.13</serenity.maven.version>
+        <serenity.version>1.1.14</serenity.version>
+        <serenity.maven.version>1.1.14</serenity.maven.version>
         <serenity.cucumber.version>1.1.1</serenity.cucumber.version>
         <webdriver.driver>firefox</webdriver.driver>
     </properties>
@@ -42,6 +42,11 @@
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
+            <version>${serenity.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-junit</artifactId>
             <version>${serenity.version}</version>
         </dependency>
         <dependency>
@@ -102,12 +107,13 @@
                 <version>2.18.1</version>
                 <configuration>
                     <includes>
-                        <include>**/features/*.java</include>
+                        <include>**/features/**/*.java</include>
+                        <include>**/cucumber/*.java</include>
                     </includes>
                     <argLine>-Xmx512m</argLine>
-                    <!--<parallel>classes</parallel>-->
-                    <!--<threadCount>3</threadCount>-->
-                    <!--<forkCount>3</forkCount>-->
+                    <parallel>classes</parallel>
+                    <threadCount>4</threadCount>
+                    <forkCount>4</forkCount>
                 </configuration>
                 <executions>
                     <execution>

@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class TodoPage extends PageObject {
 
     public static final String ACTION_ROW = "//div[@class='view' and contains(.,'%s')]";
+    public static final String ACTION_ROW_LABEL = "//label[contains(.,'%s')]";
     public static final String COMPLETE_TICKBOX = ".//input[@ng-model='todo.completed']";
 
     public void addActionCalled(String actionName) {
@@ -47,6 +48,10 @@ public class TodoPage extends PageObject {
         return $(String.format(ACTION_ROW, action));
     }
 
+    private WebElementFacade inActionRowLabelFor(String action) {
+        return $(String.format(ACTION_ROW_LABEL, action));
+    }
+
     public TodoStatus getStatusFor(String action) {
         WebElementFacade actionRow = inActionRowFor(action);
         return isShownAsCompleted(actionRow) ? TodoStatus.Completed : TodoStatus.Active;
@@ -54,5 +59,15 @@ public class TodoPage extends PageObject {
 
     private boolean isShownAsCompleted(WebElementFacade actionRow) {
         return actionRow.find(By.tagName("label")).getCssValue("text-decoration").equals("line-through");
+    }
+
+    public void updateAction(String currentActionName, String newActionName) {
+        evaluateJavascript("arguments[0].click()", inActionRowLabelFor(currentActionName));
+        inActionRowLabelFor(currentActionName).type(newActionName);
+        inActionRowLabelFor(currentActionName).sendKeys(Keys.RETURN);
+    }
+
+    public void clearCompletedActions() {
+        $("#clear-completed").click();
     }
 }
