@@ -1,12 +1,13 @@
 package net.serenitybdd.demos.todos.cucumber.stepdefinitions;
 
+import com.beust.jcommander.internal.Lists;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import net.serenitybdd.demos.todos.tasks.CompleteItem;
-import net.serenitybdd.demos.todos.tasks.DisplayedItems;
 import net.serenitybdd.demos.todos.tasks.AddItems;
+import net.serenitybdd.demos.todos.tasks.CompleteItem;
 import net.serenitybdd.demos.todos.tasks.DeleteAnItem;
+import net.serenitybdd.demos.todos.tasks.DisplayedItems;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;

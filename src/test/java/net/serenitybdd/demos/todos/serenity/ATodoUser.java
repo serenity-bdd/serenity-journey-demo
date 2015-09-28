@@ -7,53 +7,51 @@ import net.thucydides.core.annotations.Step;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by john on 26/09/2015.
- */
 public class ATodoUser {
 
-    TodoPage todoPage;
 
     @Step
-    public void opensTheTodoApplication() {
-        todoPage.open();
+    public void opens_the_todo_application() {
+        onTheTodoHomePage.open();
+    }
+
+    TodoPage onTheTodoHomePage;
+
+    @Step
+    public void adds_an_action_called(String actionName) {
+        onTheTodoHomePage.addAnActionCalled(actionName);
     }
 
     @Step
-    public void addsANewActionCalled(String actionName) {
-        todoPage.addActionCalled(actionName);
-    }
-
-    @Step
-    public void hasAddedActionsCalled(String... actionNames) {
+    public void has_added_actions_called(String... actionNames) {
         ImmutableList.copyOf(actionNames).forEach(
-                action -> addsANewActionCalled(action)
+                action -> adds_an_action_called(action)
         );
     }
 
     @Step
-    public void shouldSeeTheTodoAction(String action) {
-        assertThat(todoPage.getActions()).contains(action);
+    public void should_see_the_todo_action(String action) {
+        assertThat(onTheTodoHomePage.getActions()).contains(action);
     }
 
     @Step
-    public void shouldSeeTheTodoActions(String... actionNames) {
-        assertThat(todoPage.getActions()).containsExactly(actionNames);
+    public void should_see_the_todo_actions(String... actionNames) {
+        assertThat(onTheTodoHomePage.getActions()).containsExactly(actionNames);
     }
 
     @Step
-    public void filtersByStatus(TodoStatusFilter status) {
-        todoPage.filterByStatus(status);
+    public void filters_by_status(TodoStatusFilter status) {
+        onTheTodoHomePage.filterByStatus(status);
     }
 
 
     @Step("Completes the action called '{0}'")
-    public void completesTheActionCalled(String actionName) {
-        todoPage.markComplete(actionName);
+    public void completes_the_action_called(String actionName) {
+        onTheTodoHomePage.markComplete(actionName);
     }
 
     @Step
-    public void clearsTheCompletedActions() {
-        todoPage.clearCompletedActions();
+    public void clears_the_completed_actions() {
+        onTheTodoHomePage.clearCompletedActions();
     }
 }

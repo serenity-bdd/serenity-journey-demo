@@ -23,21 +23,21 @@ public class CompleteTodos {
 
     @Before
     public void openTheApplication() {
-        joe.opensTheTodoApplication();
+        joe.opens_the_todo_application();
     }
 
     @Test
     public void shouldBeAbleToClearCompletedActionsFromTheTodoList() {
 
         // GIVEN
-        joe.hasAddedActionsCalled("Walk the dog", "Put out the garbage");
+        joe.has_added_actions_called("Walk the dog", "Put out the garbage");
 
         // WHEN
-        joe.completesTheActionCalled("Walk the dog");
-        joe.clearsTheCompletedActions();
+        joe.completes_the_action_called("Walk the dog");
+        joe.clears_the_completed_actions();
 
         // THEN
-        joe.shouldSeeTheTodoActions("Put out the garbage");
+        joe.should_see_the_todo_actions("Put out the garbage");
     }
 
 }

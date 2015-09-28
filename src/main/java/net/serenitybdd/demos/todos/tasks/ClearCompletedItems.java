@@ -6,9 +6,6 @@ import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.tasks.Click;
 import net.thucydides.core.annotations.Step;
 
-/**
- * Created by john on 27/09/2015.
- */
 public class ClearCompletedItems implements Performable {
 
     @Step("{0} clears all the completed items")

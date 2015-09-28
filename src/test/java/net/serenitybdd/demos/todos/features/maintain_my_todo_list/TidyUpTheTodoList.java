@@ -1,9 +1,9 @@
 package net.serenitybdd.demos.todos.features.maintain_my_todo_list;
 
+import net.serenitybdd.demos.todos.tasks.AddItems;
 import net.serenitybdd.demos.todos.tasks.ClearCompletedItems;
 import net.serenitybdd.demos.todos.tasks.CompleteItem;
 import net.serenitybdd.demos.todos.tasks.DisplayedItems;
-import net.serenitybdd.demos.todos.tasks.AddItems;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
@@ -16,7 +16,6 @@ import org.openqa.selenium.WebDriver;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.*;
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 
 /**
  * This example illustrates using the Journey pattern with JUnit.

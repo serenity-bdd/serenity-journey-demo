@@ -18,7 +18,7 @@ public class TodoPage extends PageObject {
     public static final String ACTION_ROW_LABEL = "//label[contains(.,'%s')]";
     public static final String COMPLETE_TICKBOX = ".//input[@ng-model='todo.completed']";
 
-    public void addActionCalled(String actionName) {
+    public void addAnActionCalled(String actionName) {
         $("#new-todo").type(actionName)
                       .then().sendKeys(Keys.ENTER);
     }
@@ -41,7 +41,6 @@ public class TodoPage extends PageObject {
 
     public void markComplete(String action) {
         inActionRowFor(action).findBy(COMPLETE_TICKBOX).click();
-
     }
 
     private WebElementFacade inActionRowFor(String action) {
