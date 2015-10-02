@@ -1,10 +1,10 @@
 package net.serenitybdd.demos.todos.serenity;
 
-import com.google.common.collect.ImmutableList;
 import net.serenitybdd.demos.todos.model.TodoStatusFilter;
 import net.serenitybdd.demos.todos.pages.TodoPage;
 import net.thucydides.core.annotations.Step;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ATodoUser {
@@ -24,7 +24,7 @@ public class ATodoUser {
 
     @Step
     public void has_added_actions_called(String... actionNames) {
-        ImmutableList.copyOf(actionNames).forEach(
+        newArrayList(actionNames).forEach(
                 action -> adds_an_action_called(action)
         );
     }

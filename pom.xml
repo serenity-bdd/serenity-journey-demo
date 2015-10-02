@@ -15,6 +15,7 @@
         <serenity.maven.version>1.1.14</serenity.maven.version>
         <serenity.cucumber.version>1.1.1</serenity.cucumber.version>
         <webdriver.driver>firefox</webdriver.driver>
+        <parallel.tests>1</parallel.tests>
     </properties>
 
     <repositories>
@@ -112,8 +113,8 @@
                     </includes>
                     <argLine>-Xmx512m</argLine>
                     <parallel>classes</parallel>
-                    <threadCount>4</threadCount>
-                    <forkCount>4</forkCount>
+                    <threadCount>${parallel.tests}</threadCount>
+                    <forkCount>${parallel.tests}</forkCount>
                 </configuration>
                 <executions>
                     <execution>
