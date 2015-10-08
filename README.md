@@ -7,7 +7,9 @@ The slides [Serenity and the Journey Pattern](http://www.slideshare.net/wakaleo/
 reason behind _why_ automating the testing of software is important. The _Journey Pattern - A User-Centric Model_ is explained from
 sheet 62 onward.   
 
-<img src="http://vignette2.wikia.nocookie.net/lego/images/5/52/Lego-star-wars-han-solo-minifigure.jpg/revision/latest?cb=20120203072148" width="100" />
+![actor](documentation/image/actor.png)
+
+<img src="documentation/image/actor.png" width="100" />
 
 - __Actors__ have _goals_
 - __Actors__ have _abilities_
