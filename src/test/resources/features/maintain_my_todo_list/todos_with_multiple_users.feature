@@ -1,3 +1,4 @@
+@tool:cucumber
 Feature: Todos with multiple users
   More than one user should be able to use the Todo system simultaneously
 

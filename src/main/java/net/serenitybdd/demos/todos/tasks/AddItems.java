@@ -1,13 +1,19 @@
 package net.serenitybdd.demos.todos.tasks;
 
 import com.google.common.collect.ImmutableList;
+import net.serenitybdd.core.exceptions.TestCompromisedException;
 import net.serenitybdd.demos.todos.pages.ApplicationHomePage;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.tasks.Open;
 import net.thucydides.core.annotations.Step;
+import org.junit.AssumptionViolatedException;
+import org.openqa.selenium.ElementNotVisibleException;
 
 import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 public class AddItems implements Performable {
 
@@ -30,4 +36,24 @@ public class AddItems implements Performable {
         return called(ImmutableList.copyOf(thingsToDo));
     }
 
+    @Step
+    public void failAssumption() {
+        throw new AssumptionViolatedException("oh crap");
+
+    }
+
+    @Step
+    public void failedAssert() {
+        assertThat(true, is(false));
+    }
+
+    @Step
+    public void withError() {
+        throw new ElementNotVisibleException("");
+    }
+
+    @Step
+    public void compromised() {
+        throw new TestCompromisedException("");
+    }
 }
