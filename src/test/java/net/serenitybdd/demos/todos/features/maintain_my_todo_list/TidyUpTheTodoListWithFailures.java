@@ -4,6 +4,7 @@ import net.serenitybdd.demos.todos.tasks.*;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
+import net.thucydides.core.annotations.Issue;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Before;
@@ -18,6 +19,7 @@ import static org.hamcrest.Matchers.contains;
  * This example illustrates using the Journey pattern with JUnit.
  */
 @RunWith(SerenityRunner.class)
+@Issue("450")
 public class TidyUpTheTodoListWithFailures {
 
     @Managed

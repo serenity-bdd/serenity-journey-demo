@@ -1,4 +1,5 @@
 @tool:cucumber
+@issue:450
 Feature: Delete a todo
   I need to be able to delete a todo item if I made a mistake or no longer need to do it.
 
@@ -11,4 +12,4 @@ Feature: Delete a todo
     Given Joe has a todo list containing Buy some milk,Buy Petrol
     And Joe has marked the Buy some milk action as complete
     When Joe deletes the todo action Buy some milk
-    Then Joe's todo list should contain Buy Petrol
+    Then Joe's todo list should contain Buy Gas

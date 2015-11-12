@@ -2,6 +2,7 @@ package net.serenitybdd.demos.todos.features.record_todos;
 
 import net.serenitybdd.demos.todos.serenity.ATodoUser;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.thucydides.core.annotations.Issue;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.Before;
@@ -13,6 +14,7 @@ import org.openqa.selenium.WebDriver;
  * This example illustrates using Serenity Steps with JUnit.
  */
 @RunWith(SerenityRunner.class)
+@Issue("455")
 public class CompleteTodos {
 
     @Managed

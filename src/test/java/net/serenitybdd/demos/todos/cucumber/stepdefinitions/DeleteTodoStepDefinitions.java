@@ -1,9 +1,9 @@
 package net.serenitybdd.demos.todos.cucumber.stepdefinitions;
 
-import com.beust.jcommander.internal.Lists;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.demos.todos.model.ExpectedItemsNotDisplayed;
 import net.serenitybdd.demos.todos.tasks.AddItems;
 import net.serenitybdd.demos.todos.tasks.CompleteItem;
 import net.serenitybdd.demos.todos.tasks.DeleteAnItem;
@@ -44,7 +44,9 @@ public class DeleteTodoStepDefinitions {
 
     @Then("^(.*)'s todo list should contain (.*)$")
     public void my_todo_list_should_contain(String actor, List<String> expectedTodos) throws Throwable {
-        theActorNamed(actor).should(seeThat(theDisplayedItems, containsInAnyOrder(theActionsIn(expectedTodos))));
+        theActorNamed(actor).should(seeThat(theDisplayedItems,
+                containsInAnyOrder(theActionsIn(expectedTodos)))
+                .orComplainWith(ExpectedItemsNotDisplayed.class));
     }
 
     private Object[] theActionsIn(List<String> expectedTodos) {
