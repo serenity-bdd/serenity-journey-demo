@@ -45,6 +45,14 @@
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
             <version>${serenity.version}</version>
+            <exclusions>
+            	<!--  INFO: This dependency is currently not available for download on http://jcenter.bintray.com  -->
+            	<!--        Nor on Maven central Repo. But seams not to be required /used by this project.         -->
+            	<exclusion>
+            		<groupId>net.java.dev.jna</groupId>
+            		<artifactId>jna</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
