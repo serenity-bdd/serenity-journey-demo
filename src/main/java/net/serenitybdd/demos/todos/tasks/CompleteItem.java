@@ -4,6 +4,8 @@ import net.serenitybdd.demos.todos.pages.components.ToDoList;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.tasks.Click;
+import net.thucydides.core.annotations.Pending;
+import net.thucydides.core.annotations.Step;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
@@ -20,6 +22,7 @@ public class CompleteItem implements Performable {
     }
 
     @Override
+    @Step("Completes item called #itemName")
     public <T extends Actor> void performAs(T theActor) {
         theActor.attemptsTo(Click.on(ToDoList.completeButtonFor(itemName)));
     }

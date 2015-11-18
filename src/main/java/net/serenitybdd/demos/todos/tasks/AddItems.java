@@ -5,6 +5,7 @@ import net.serenitybdd.demos.todos.pages.ApplicationHomePage;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.tasks.Open;
+import net.thucydides.core.annotations.Pending;
 import net.thucydides.core.annotations.Step;
 
 import java.util.List;
