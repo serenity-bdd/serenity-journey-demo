@@ -1,3 +1,5 @@
+@tool:cucumber
+@issue:450
 Feature: Delete a todo
   I need to be able to delete a todo item if I made a mistake or no longer need to do it.
 

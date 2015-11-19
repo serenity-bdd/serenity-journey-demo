@@ -30,6 +30,7 @@ public class TodoPage extends PageObject {
     }
 
     public void filterByStatus(TodoStatusFilter status) {
+
         findBy("#filters")
                 .then().findBy(statusFilterLinkFor(status))
                 .then().click();

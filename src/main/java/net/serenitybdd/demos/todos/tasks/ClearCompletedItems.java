@@ -14,6 +14,5 @@ public class ClearCompletedItems implements Performable {
     @Step("{0} clears all the completed items")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(Click.on(FilterBar.CLEAR_COMPLETED));
-        assertThat(1).isGreaterThan(2);
     }
 }
