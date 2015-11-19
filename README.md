@@ -9,3 +9,11 @@ mvn clean verify
 ```
 
 The Serenity reports will be generated in the `target/site/serenity` directory.
+
+## Tutorial exercises:
+
+### Classic Serenity
+
+1) Start with the `add_new_todos.feature` file. Walk through the step definitions
+2) 
+
