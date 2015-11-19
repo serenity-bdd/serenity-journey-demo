@@ -4,6 +4,7 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.PendingStepException;
 import net.serenitybdd.demos.todos.model.TodoStatusFilter;
 import net.serenitybdd.demos.todos.serenity.ATodoUser;
 import net.thucydides.core.annotations.Pending;
@@ -15,11 +16,10 @@ public class RecordTodoStepDefinitions {
 
     @Given("^I need to (?:.*)$")
     public void i_need_to_add_a_new_task() throws Throwable {
-        jane.opens_the_todo_application();
+        throw new PendingException();
     }
 
     @When("^I (?:add|have added) the todo action '(.*)'$")
-    @Pending
     public void i_add_the_todo_action(String actionName) throws Throwable {
         throw new PendingException();
     }

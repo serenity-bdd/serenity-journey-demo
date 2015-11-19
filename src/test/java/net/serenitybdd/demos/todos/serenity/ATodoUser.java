@@ -17,14 +17,6 @@ public class ATodoUser {
 
     TodoPage onTheTodoHomePage;
 
-//    @Step
-//    public void has_added_actions_called(String... actionNames) {
-//        newArrayList(actionNames).forEach(
-//                action -> adds_an_action_called(action)
-//        );
-//    }
-//
-
     @Step
     public void clears_the_completed_actions() {
         onTheTodoHomePage.clearCompletedActions();

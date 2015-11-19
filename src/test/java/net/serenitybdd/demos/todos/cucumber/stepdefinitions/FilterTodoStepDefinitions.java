@@ -3,7 +3,6 @@ package net.serenitybdd.demos.todos.cucumber.stepdefinitions;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.When;
 import net.serenitybdd.demos.todos.model.TodoStatusFilter;
-import net.serenitybdd.demos.todos.tasks.FilterItems;
 
 import static net.serenitybdd.demos.todos.model.Actors.theActorNamed;
 

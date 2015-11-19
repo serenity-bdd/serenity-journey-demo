@@ -1,6 +1,7 @@
 package net.serenitybdd.demos.todos.cucumber.stepdefinitions;
 
 import cucumber.api.Pending;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -30,7 +31,6 @@ public class DeleteTodoStepDefinitions {
     WebDriver joesBrowser;
 
     @Steps AddItems addSomeItems;
-    @Steps DisplayedItems theDisplayedItems;
 
     @Given("^(.*) has a todo list containing (.*)$")
     public void has_a_todo_list_containing(String actor, List<String> thingsToDo) throws Throwable {
@@ -42,17 +42,6 @@ public class DeleteTodoStepDefinitions {
     @When("^(.*) deletes the todo action (.*)$")
     public void delete_the_todo_action(String actor, String action) throws Throwable {
         theActorNamed(actor).attemptsTo(DeleteAnItem.called(action));
-    }
-
-    @Then("^(.*)'s todo list should contain (.*)$")
-    public void my_todo_list_should_contain(String actor, List<String> expectedTodos) throws Throwable {
-        theActorNamed(actor).should(seeThat(theDisplayedItems,
-                containsInAnyOrder(theActionsIn(expectedTodos)))
-                .orComplainWith(ExpectedItemsNotDisplayed.class));
-    }
-
-    private Object[] theActionsIn(List<String> expectedTodos) {
-        return expectedTodos.toArray();
     }
 
     @Given("^(.*) has marked the (.*) action as complete$")
