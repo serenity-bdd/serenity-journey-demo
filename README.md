@@ -26,7 +26,7 @@ Implement the `I need to...` method:
 
 2. Implement “When I add the todo action”      
 
-```jane.adds_an_action_called(actionName)```
+        jane.adds_an_action_called(actionName)```
 
 3. In ATodoUser add: 
 
@@ -61,7 +61,7 @@ Implement the `I need to...` method:
                                    .collect(Collectors.toList());
         }
 
-8) Run ```mvn clean verify``` and view the report in ```target/site/serenity``` 
+8. Run ```mvn clean verify``` and view the report in ```target/site/serenity``` 
 
 ### Exercise 2 - New todos should be marked as Active
 
