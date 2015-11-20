@@ -10,50 +10,75 @@ mvn clean verify
 
 The Serenity reports will be generated in the `target/site/serenity` directory.
 
-Below are some exercises to learn to use the library:
+Below are some exercises to learn to use the library.
 
-## Part 1 - Classic TDD
+## Pre-requesites
+
+To follow this this tutorial, you will need to install the following on your machine:
+- JDK 8
+- Maven 3.x
+- Git
+- A Java IDE (IntelliJ or Eclipse)
+- The Cucumber plugin for whatever Java IDE you are using
+
+## Setting up the project
+
+Clone the project from Github and checkout the `tutorial` branch:
+
+    $ git clone git@github.com:serenity-bdd/serenity-journey-demo.git
+    $ git checkout tutorial
+    
+Run the project using Maven from the command line to download the dependencies:
+
+    $ mvn clean verify
+
+## Part 1 - Classic Serenity
 
 ### Exercise 1 - Record a new todo action for future use
 
-1. Open the `add_new_todos.feature` and work on the `Record a new todo action for future use` scenario.
-Implement the `I need to...` method:
-
+1. Open the `add_new_todos.feature` file to work on the `Record a new todo action for future use` scenario. Implement the `I need to buy some milk` method:
+ 
         @Given("^I need to (?:.*)$")
         public void i_need_to_add_a_new_task() throws Throwable {
             jane.opens_the_todo_application();
         }
 
-2. Implement “When I add the todo action”      
+2. In the `RecordTodoStepDefinitions` class, implement the “When I add the todo action”  step definition    
 
-        jane.adds_an_action_called(actionName)```
+        @When("^I (?:add|have added) the todo action '(.*)'$")
+        public void i_add_the_todo_action(String actionName) throws Throwable {
+            jane.adds_an_action_called(actionName);
+        }
 
-3. In ATodoUser add: 
+3. In the `ATodoUser` class, add the `adds_an_action_called()` method: 
 
         @Step
         public void adds_an_action_called(String actionName) {
             onTheTodoHomePage.addAnActionCalled(actionName);
         }
     
-4. In the TodoHomePage, add:
+4. In the `TodoHomePage` class, implement the `addAnActionCalled()` method:
 
         public void addAnActionCalled(String actionName) {
             $("#new-todo").type(actionName)
                           .then().sendKeys(Keys.ENTER);
         }
 
-5. Implement “Should appear in my todo list”      
+5. In the `RecordTodoStepDefinitions` class, implement “Should appear in my todo list”      
 
-        jane.should_see_the_todo_action(action)
+        @Then("^'(.*)' should (?:appear|be recorded) in my todo list$")
+        public void action_should_appear_in_my_todo_list(String action) throws Throwable {
+            jane.should_see_the_todo_action(action)
+        }
     
-6. In ATodoUser, add:
+6. In the `ATodoUser` class, implement the `should_see_the_todo_action()` method:
 
         @Step
         public void should_see_the_todo_action(String action) {
             assertThat(onTheTodoHomePage.getActions()).contains(action);
         }
     
-7. In the TodoHomePage, add:
+7. In the `TodoPage` class, implement `getActions()`:
 
         public List<String> getActions() {
             return findAll(".view").stream()
@@ -67,19 +92,22 @@ Implement the `I need to...` method:
 
 1. Open the `add_new_todos.feature` and work on the `New todos should be marked as Active` scenario
 
-2. Implement "'Buy some milk' should be recorded in the Active items":
+2. In the `RecordTodoStepDefinitions` class, implement "'Buy some milk' should be recorded in the Active items" step definition:
 
-        jane.filters_by_status(status);
-        jane.should_see_the_todo_action(action);
+        @Then("^'(.*)' should (?:appear|be recorded) in the (.*) items$")
+        public void action_should_appear_the_items_of_status(String action, TodoStatusFilter status) throws Throwable {
+            jane.filters_by_status(status);
+            jane.should_see_the_todo_action(action);
+        }
 
-3. Implement filters_by_status():
+3. In the `ATodoUser` class, implement `filters_by_status()`:
 
         @Step
         public void filters_by_status(TodoStatusFilter status) {
             onTheTodoHomePage.filterByStatus(status);
         }
 
-4. Implement filterByStatus():
+4. In the `TodoPage`, implement `filterByStatus()`:
 
         public void filterByStatus(TodoStatusFilter status) {
              findBy("#filters")
@@ -89,16 +117,16 @@ Implement the `I need to...` method:
      
          private String statusFilterLinkFor(TodoStatusFilter status) {
              return String.format(".//a[.='%s']", status.name());
-         }
+                   }
      
-5. Implement should_see_the_todo_action()
+5. In the `ATodoUser`, implement should_see_the_todo_action()
     
         @Step
         public void should_see_the_todo_actions(String... actionNames) {
             assertThat(onTheTodoHomePage.getActions()).containsExactly(actionNames);
         }
 
-6. Implement getActions():
+6. In the `TodoPage` class, implement `getActions()`:
 
         public List<String> getActions() {
             return findAll(".view").stream()
@@ -112,11 +140,14 @@ Implement the `I need to...` method:
 
 1. Open the `complete_todos.feature` and work on the `Complete a todo action` scenario
 
-2. Implement "I mark the 'Buy some milk' action as complete":
+2. In the `CompleteTodoStepDefinitions` class, implement "I mark the 'Buy some milk' action as complete":
 
-        todoPage.markComplete(action);
+        @When("^I mark the '(.*)' action as complete$")
+        public void i_mark_the_action_as_complete(String action) throws Throwable {
+            todoPage.markComplete(action);
+        }
 
-3. Implement markComplete():
+3. In the `TodoPage` class, implement markComplete():
  
          public static final String COMPLETE_TICKBOX = ".//input[@ng-model='todo.completed']";
      
@@ -124,11 +155,14 @@ Implement the `I need to...` method:
              inActionRowFor(action).findBy(COMPLETE_TICKBOX).click();
          }
 
-4. Implement "Then 'Buy some milk' should appear as completed":
+4. In the `CompleteTodoStepDefinitions` class, implement "Then 'Buy some milk' should appear as completed":
 
-        assertThat(todoPage.getStatusFor(action)).isEqualTo(TodoStatus.Completed);
+        @Then("^'(.*)' should appear as completed$")
+        public void should_appear_as_completed(String action) throws Throwable {
+            assertThat(todoPage.getStatusFor(action)).isEqualTo(TodoStatus.Completed);
+        }
 
-5. Implement getStatusFor():
+5. In the `TodoPage` class, implement getStatusFor():
 
         public static final String ACTION_ROW = "//div[@class='view' and contains(.,'%s')]";
     
@@ -154,9 +188,12 @@ Implement the `I need to...` method:
 
 2. Review the implementation of the first two steps.
 
-3. Implement the `When Joe consults the Active tasks` step:
+3. In the `FilterTodoStepDefinitions` class, implement the `When Joe consults the Active tasks` step:
 
-        theActorNamed(name).attemptsTo(FilterItems.byStatus(status));
+        @When("^(.*) consults(?: the)? (.*) tasks$")
+        public void consults_a_task_of_a_given_type(String name, TodoStatusFilter status) throws Throwable {
+            theActorNamed(name).attemptsTo(FilterItems.byStatus(status));
+        }
         
 4. Create a FilterItems task:
 
@@ -189,7 +226,7 @@ Implement the `I need to...` method:
             }
         }
 
-6. Implement `Joe's todo list should contain Buy Petrol`
+6. In the ``FilterTodoStepDefinitions` class, implement `Joe's todo list should contain Buy Petrol`
 
         @Then("^(.*)'s todo list should contain (.*)$")
         public void my_todo_list_should_contain(String actor, List<String> expectedTodos) throws Throwable {

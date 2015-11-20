@@ -9,16 +9,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ATodoUser {
 
-
-    @Step
-    public void opens_the_todo_application() {
-        onTheTodoHomePage.open();
-    }
-
     TodoPage onTheTodoHomePage;
 
     @Step
-    public void clears_the_completed_actions() {
-        onTheTodoHomePage.clearCompletedActions();
-    }
+    public void opens_the_todo_application() {}
+
 }

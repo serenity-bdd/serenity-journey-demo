@@ -16,7 +16,7 @@ public class RecordTodoStepDefinitions {
 
     @Given("^I need to (?:.*)$")
     public void i_need_to_add_a_new_task() throws Throwable {
-        throw new PendingException();
+        jane.opens_the_todo_application();
     }
 
     @When("^I (?:add|have added) the todo action '(.*)'$")
