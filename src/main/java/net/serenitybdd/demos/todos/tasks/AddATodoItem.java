@@ -14,8 +14,6 @@ public class AddATodoItem implements Performable {
 
     private final String thingToDo;
 
-    static int counter = 0;
-
     @Step("{0} adds a todo item called #thingToDo")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(

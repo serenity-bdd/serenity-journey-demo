@@ -32,18 +32,17 @@ Run the project using Maven from the command line to download the dependencies:
 
     $ mvn clean verify
 
-## Part 1 - Classic Serenity
 
 ### Exercise 1 - Record a new todo action for future use
 
 1. Open the `add_new_todos.feature` file to work on the `Record a new todo action for future use` scenario. Implement the `I need to buy some milk` method:
- 
+
         @Given("^I need to (?:.*)$")
         public void i_need_to_add_a_new_task() throws Throwable {
             jane.opens_the_todo_application();
         }
 
-2. In the `RecordTodoStepDefinitions` class, implement the “When I add the todo action”  step definition    
+2. In the `RecordTodoStepDefinitions` class, implement the “When I add the todo action”  step definition
 
         @When("^I (?:add|have added) the todo action '(.*)'$")
         public void i_add_the_todo_action(String actionName) throws Throwable {
@@ -56,7 +55,7 @@ Run the project using Maven from the command line to download the dependencies:
         public void adds_an_action_called(String actionName) {
             onTheTodoHomePage.addAnActionCalled(actionName);
         }
-    
+
 4. In the `TodoHomePage` class, implement the `addAnActionCalled()` method:
 
         public void addAnActionCalled(String actionName) {
@@ -64,20 +63,20 @@ Run the project using Maven from the command line to download the dependencies:
                           .then().sendKeys(Keys.ENTER);
         }
 
-5. In the `RecordTodoStepDefinitions` class, implement “Should appear in my todo list”      
+5. In the `RecordTodoStepDefinitions` class, implement “Should appear in my todo list” 
 
         @Then("^'(.*)' should (?:appear|be recorded) in my todo list$")
         public void action_should_appear_in_my_todo_list(String action) throws Throwable {
             jane.should_see_the_todo_action(action)
         }
-    
+
 6. In the `ATodoUser` class, implement the `should_see_the_todo_action()` method:
 
         @Step
         public void should_see_the_todo_action(String action) {
             assertThat(onTheTodoHomePage.getActions()).contains(action);
         }
-    
+
 7. In the `TodoPage` class, implement `getActions()`:
 
         public List<String> getActions() {
@@ -86,7 +85,7 @@ Run the project using Maven from the command line to download the dependencies:
                                    .collect(Collectors.toList());
         }
 
-8. Run ```mvn clean verify``` and view the report in ```target/site/serenity``` 
+8. Run ```mvn clean verify``` and view the report in ```target/site/serenity```
 
 ### Exercise 2 - New todos should be marked as Active
 
@@ -114,13 +113,13 @@ Run the project using Maven from the command line to download the dependencies:
                      .then().findBy(statusFilterLinkFor(status))
                      .then().click();
          }
-     
+
          private String statusFilterLinkFor(TodoStatusFilter status) {
              return String.format(".//a[.='%s']", status.name());
                    }
-     
+
 5. In the `ATodoUser`, implement should_see_the_todo_action()
-    
+
         @Step
         public void should_see_the_todo_actions(String... actionNames) {
             assertThat(onTheTodoHomePage.getActions()).containsExactly(actionNames);
@@ -133,10 +132,11 @@ Run the project using Maven from the command line to download the dependencies:
                                    .map(WebElementFacade::getText)
                                    .collect(Collectors.toList());
         }
-    
+
 7. Run the tests again
 
 ## Exercise 3 - Complete a todo action
+
 
 1. Open the `complete_todos.feature` and work on the `Complete a todo action` scenario
 
@@ -148,9 +148,9 @@ Run the project using Maven from the command line to download the dependencies:
         }
 
 3. In the `TodoPage` class, implement markComplete():
- 
+
          public static final String COMPLETE_TICKBOX = ".//input[@ng-model='todo.completed']";
-     
+
          public void markComplete(String action) {
              inActionRowFor(action).findBy(COMPLETE_TICKBOX).click();
          }
@@ -165,16 +165,16 @@ Run the project using Maven from the command line to download the dependencies:
 5. In the `TodoPage` class, implement getStatusFor():
 
         public static final String ACTION_ROW = "//div[@class='view' and contains(.,'%s')]";
-    
+
         private WebElementFacade inActionRowFor(String action) {
             return $(String.format(ACTION_ROW, action));
         }
-    
+
         public TodoStatus getStatusFor(String action) {
             WebElementFacade actionRow = inActionRowFor(action);
             return isShownAsCompleted(actionRow) ? TodoStatus.Completed : TodoStatus.Active;
         }
-    
+
         private boolean isShownAsCompleted(WebElementFacade actionRow) {
             return actionRow.find(By.tagName("label")).getCssValue("text-decoration").equals("line-through");
         }
@@ -186,73 +186,21 @@ Run the project using Maven from the command line to download the dependencies:
 
 1. Open the `filter_todos_by_status.feature` and work on the `Display only Active tasks` scenario
 
-2. Review the implementation of the first two steps.
+1. Review the implementation of the first two steps to see how the Journey pattern is used in these tests.
 
-3. In the `FilterTodoStepDefinitions` class, implement the `When Joe consults the Active tasks` step:
+1. Implement the step definition method for `When Joe consults the Active tasks` step.
+A simple design might use the following layers:
+   - Define the Cucumber step definition in the `FilterTodoStepDefinitions` class
+   - Create a FilterItems task for this step definition to use to click on a given filter type in the filter bar
+   - Create a FilterBsr class to isolate the locators for the filter bar web elements
 
-        @When("^(.*) consults(?: the)? (.*) tasks$")
-        public void consults_a_task_of_a_given_type(String name, TodoStatusFilter status) throws Throwable {
-            theActorNamed(name).attemptsTo(FilterItems.byStatus(status));
-        }
-        
-4. Create a FilterItems task:
+1. Now implement `Joe's todo list should contain Buy Petrol`
+   - Define the Cucumber step definition in the `FilterTodoStepDefinitions` class
+   - Create a DisplayedItems question class to find the list of todo items displayed on the screen, and use
+   this question class to form the assertion in the step definition.
 
-        public class FilterItems implements Performable {
-        
-            final TodoStatusFilter filter;
-        
-            public FilterItems(TodoStatusFilter filter) {
-                this.filter = filter;
-            }
-        
-            @Step("{0} filters items by status #status")
-            public <T extends Actor> void performAs(T theActor) {
-                theActor.attemptsTo(Click.on(FilterBar.filterCalled(filter.name())));
-            }
-        
-            public static FilterItems byStatus(TodoStatusFilter status) {
-                return instrumented(FilterItems.class, status);
-            }
-        }
-        
-5. Implement the FilterBar class:
+### Exercise 5
 
-        public class FilterBar {
-            public static final Target CLEAR_COMPLETED = Target.the("Clear completed button").locatedBy("#clear-completed");
-        
-            public static Target filterCalled(String name) {
-                String FILTER_BUTTON = "//a[.='%s']";
-                return Target.the(name + " filter").locatedBy(String.format(FILTER_BUTTON, name));
-            }
-        }
+1. Open the `delete_a_todo,feature` file
 
-6. In the ``FilterTodoStepDefinitions` class, implement `Joe's todo list should contain Buy Petrol`
-
-        @Then("^(.*)'s todo list should contain (.*)$")
-        public void my_todo_list_should_contain(String actor, List<String> expectedTodos) throws Throwable {
-            theActorNamed(actor).should(seeThat(theDisplayedItems, containsInAnyOrder(theActionsIn(expectedTodos)));
-        }
-    
-        private Object[] theActionsIn(List<String> expectedTodos) {
-            return expectedTodos.toArray();
-        }
-
-7. Implement the DisplayedItems question class
-
-        @Steps DisplayedItems theDisplayedItems;
-
-        public class DisplayedItems implements Question<List<String>> {
-        
-            public static DisplayedItems theDisplayedItems() {
-                return new DisplayedItems();
-            }
-        
-            @Override
-            public List<String> answeredBy(Actor actor) {
-                return BrowseTheWeb.as(actor).findAll(ToDoList.TODO_ITEMS).stream()
-                                             .map(WebElementFacade::getText)
-                                             .collect(Collectors.toList());
-            }
-        }
-    
-8. Rerun the tests
+1. Implement the missing step definition using the Journey pattern.
