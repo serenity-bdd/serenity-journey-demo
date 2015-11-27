@@ -1,5 +1,5 @@
 @tool:cucumber
-@issue:455
+@issue:#455
 Feature: Complete todos
   Once I have completed an item, I need to be able to check it off in my todo list.
 

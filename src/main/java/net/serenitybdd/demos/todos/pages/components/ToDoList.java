@@ -4,7 +4,6 @@ import net.serenitybdd.screenplay.targets.Target;
 
 public class ToDoList {
     public static Target NEW_TODO_FIELD = Target.the("New Todo Field").locatedBy("#new-todo");
-    public static String TODO_ITEMS = ".view label";
 
     public static Target completeButtonFor(String itemName) {
         String COMPLETE_BUTTON = "//*[@class='view' and contains(.,'%s')]//input[@type='checkbox']";

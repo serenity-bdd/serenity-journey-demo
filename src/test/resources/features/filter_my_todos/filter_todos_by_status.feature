@@ -1,5 +1,5 @@
 @tool:cucumber
-@issue:451
+@issue:#451
 Feature: Filter todos by status
   I need to be able show only completed or uncompleted tasks
 

@@ -32,9 +32,14 @@ To follow this this tutorial, you will need to install the following on your mac
 
     $ mvn clean verify
 
-3. Review the existing code base
+    There should be 10 pending and 1 failing test
+
 
 ### Exercise 1 - Record a new todo action for future use
+
+1. Review and complete the implementation of the `The number of remaining todos should be visible` scenario in the `add_new_todos.feature`
+
+### Exercise 2 - Record a new todo action for future use
 
 1. Open the `add_new_todos.feature` file to work on the `Record a new todo action for future use` scenario. Implement the `I need to buy some milk` method:
 
@@ -79,7 +84,9 @@ To follow this this tutorial, you will need to install the following on your mac
 
 7. Run ```mvn clean verify``` and view the report in ```target/site/serenity```
 
-### Exercise 2 - New todos should be marked as Active
+8. Refactor as appropriate
+
+### Exercise 3 - New todos should be marked as Active
 
 1. Open the `add_new_todos.feature` and work on the `New todos should be marked as Active` scenario
 
@@ -92,8 +99,7 @@ To follow this this tutorial, you will need to install the following on your mac
 
 3. Run the tests again
 
-## Exercise 3 - Complete a todo action
-
+## Exercise 4 - Complete a todo action
 
 1. Open the `complete_todos.feature` and work on the `Complete a todo action` scenario
 
@@ -104,10 +110,9 @@ To follow this this tutorial, you will need to install the following on your mac
             // TODO: Implement with the step library object and page objects as appropriate
         }
 
-
 ## Part 2 - The Journey Pattern
 
-### Exercise 4 - Display Completed tasks (the journey pattern)
+### Exercise 5 - Display Completed tasks (the journey pattern)
 
 1. Open the `filter_todos_by_status.feature` and work on the `Display only Active tasks` scenario
 
@@ -117,15 +122,23 @@ To follow this this tutorial, you will need to install the following on your mac
 A simple design might use the following layers:
    - Define the Cucumber step definition in the `FilterTodoStepDefinitions` class
    - Create a FilterItems task for this step definition to use to click on a given filter type in the filter bar
-   - Create a FilterBsr class to isolate the locators for the filter bar web elements
+   - Create a FilterBar class to isolate the locators for the filter bar web elements
 
 1. Now implement `Joe's todo list should contain Buy Petrol`
    - Define the Cucumber step definition in the `FilterTodoStepDefinitions` class
    - Create a DisplayedItems question class to find the list of todo items displayed on the screen, and use
    this question class to form the assertion in the step definition.
 
-### Exercise 5
+### Exercise 6
 
 1. Open the `delete_a_todo,feature` file
 
 1. Implement the missing step definition using the Journey pattern.
+
+### Exercise 7
+
+1. Specify and implement a test for a requirement that states that todo items should be displayed in chronological order.
+
+### Exercise 8
+
+1. Refactor the initial tests using the Journey pattern.

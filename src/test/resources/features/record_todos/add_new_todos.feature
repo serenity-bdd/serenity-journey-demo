@@ -1,5 +1,5 @@
 @tool:cucumber
-@issue:456
+@issue:#456
 Feature: Add new todos
   I need to be able to jot down actions I need to do as fast as I think of them
 
@@ -17,3 +17,10 @@ Feature: Add new todos
     Given I need to make some coffee
     When I add the todo action 'Make some coffee'
     Then I should receive a double espresso
+
+  Scenario: The number of remaining todos should be visible
+    Given I need to buy some milk
+    And I have added the todo action 'Buy some coffee'
+    And I have added the todo action 'Buy some milk'
+    When I consult my todo list
+    Then I should have 2 items left to do
