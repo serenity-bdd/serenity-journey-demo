@@ -15,7 +15,7 @@ Below are some exercises to learn to use the library.
 ## Pre-requesites
 
 To follow this this tutorial, you will need to install the following on your machine:
-- JDK 8
+- JDK 7
 - Maven 3.x
 - Git
 - A Java IDE (IntelliJ or Eclipse)
@@ -23,15 +23,16 @@ To follow this this tutorial, you will need to install the following on your mac
 
 ## Setting up the project
 
-Clone the project from Github and checkout the `tutorial` branch:
+1. Clone the project from Github and checkout the `tutorial` branch:
 
     $ git clone git@github.com:serenity-bdd/serenity-journey-demo.git
-    $ git checkout tutorial
+    $ git checkout serenity-test
     
-Run the project using Maven from the command line to download the dependencies:
+2. Run the project using Maven from the command line to download the dependencies:
 
     $ mvn clean verify
 
+3. Review the existing code base
 
 ### Exercise 1 - Record a new todo action for future use
 
@@ -59,8 +60,7 @@ Run the project using Maven from the command line to download the dependencies:
 4. In the `TodoHomePage` class, implement the `addAnActionCalled()` method:
 
         public void addAnActionCalled(String actionName) {
-            $("#new-todo").type(actionName)
-                          .then().sendKeys(Keys.ENTER);
+           // TODO: Implement me
         }
 
 5. In the `RecordTodoStepDefinitions` class, implement “Should appear in my todo list” 
@@ -74,18 +74,10 @@ Run the project using Maven from the command line to download the dependencies:
 
         @Step
         public void should_see_the_todo_action(String action) {
-            assertThat(onTheTodoHomePage.getActions()).contains(action);
+            // TODO: Implement me
         }
 
-7. In the `TodoPage` class, implement `getActions()`:
-
-        public List<String> getActions() {
-            return findAll(".view").stream()
-                                   .map(WebElementFacade::getText)
-                                   .collect(Collectors.toList());
-        }
-
-8. Run ```mvn clean verify``` and view the report in ```target/site/serenity```
+7. Run ```mvn clean verify``` and view the report in ```target/site/serenity```
 
 ### Exercise 2 - New todos should be marked as Active
 
@@ -95,45 +87,10 @@ Run the project using Maven from the command line to download the dependencies:
 
         @Then("^'(.*)' should (?:appear|be recorded) in the (.*) items$")
         public void action_should_appear_the_items_of_status(String action, TodoStatusFilter status) throws Throwable {
-            jane.filters_by_status(status);
-            jane.should_see_the_todo_action(action);
+            // TODO: Implement with the step library object and page objects as appropriate
         }
 
-3. In the `ATodoUser` class, implement `filters_by_status()`:
-
-        @Step
-        public void filters_by_status(TodoStatusFilter status) {
-            onTheTodoHomePage.filterByStatus(status);
-        }
-
-4. In the `TodoPage`, implement `filterByStatus()`:
-
-        public void filterByStatus(TodoStatusFilter status) {
-             findBy("#filters")
-                     .then().findBy(statusFilterLinkFor(status))
-                     .then().click();
-         }
-
-         private String statusFilterLinkFor(TodoStatusFilter status) {
-             return String.format(".//a[.='%s']", status.name());
-                   }
-
-5. In the `ATodoUser`, implement should_see_the_todo_action()
-
-        @Step
-        public void should_see_the_todo_actions(String... actionNames) {
-            assertThat(onTheTodoHomePage.getActions()).containsExactly(actionNames);
-        }
-
-6. In the `TodoPage` class, implement `getActions()`:
-
-        public List<String> getActions() {
-            return findAll(".view").stream()
-                                   .map(WebElementFacade::getText)
-                                   .collect(Collectors.toList());
-        }
-
-7. Run the tests again
+3. Run the tests again
 
 ## Exercise 3 - Complete a todo action
 
@@ -144,39 +101,7 @@ Run the project using Maven from the command line to download the dependencies:
 
         @When("^I mark the '(.*)' action as complete$")
         public void i_mark_the_action_as_complete(String action) throws Throwable {
-            todoPage.markComplete(action);
-        }
-
-3. In the `TodoPage` class, implement markComplete():
-
-         public static final String COMPLETE_TICKBOX = ".//input[@ng-model='todo.completed']";
-
-         public void markComplete(String action) {
-             inActionRowFor(action).findBy(COMPLETE_TICKBOX).click();
-         }
-
-4. In the `CompleteTodoStepDefinitions` class, implement "Then 'Buy some milk' should appear as completed":
-
-        @Then("^'(.*)' should appear as completed$")
-        public void should_appear_as_completed(String action) throws Throwable {
-            assertThat(todoPage.getStatusFor(action)).isEqualTo(TodoStatus.Completed);
-        }
-
-5. In the `TodoPage` class, implement getStatusFor():
-
-        public static final String ACTION_ROW = "//div[@class='view' and contains(.,'%s')]";
-
-        private WebElementFacade inActionRowFor(String action) {
-            return $(String.format(ACTION_ROW, action));
-        }
-
-        public TodoStatus getStatusFor(String action) {
-            WebElementFacade actionRow = inActionRowFor(action);
-            return isShownAsCompleted(actionRow) ? TodoStatus.Completed : TodoStatus.Active;
-        }
-
-        private boolean isShownAsCompleted(WebElementFacade actionRow) {
-            return actionRow.find(By.tagName("label")).getCssValue("text-decoration").equals("line-through");
+            // TODO: Implement with the step library object and page objects as appropriate
         }
 
 
