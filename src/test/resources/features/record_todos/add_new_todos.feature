@@ -13,11 +13,6 @@ Feature: Add new todos
     When I add the todo action 'Buy some milk'
     Then 'Buy some milk' should be recorded in the Active items
 
-  Scenario: New todos should also make coffee
-    Given I need to make some coffee
-    When I add the todo action 'Make some coffee'
-    Then I should receive a double espresso
-
   Scenario: The number of remaining todos should be visible
     Given I need to buy some milk
     And I have added the todo action 'Buy some coffee'
