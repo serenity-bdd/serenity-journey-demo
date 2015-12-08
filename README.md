@@ -64,7 +64,7 @@ Open the `add_new_todos.feature` file to work on the `Record a new todo action f
     }
     ```
 
-1. Next add the `adds_an_action_called()` method in the `ATodoUser` class: 
+1. Next, add the `adds_an_action_called()` method in the `ATodoUser` class: 
 
     ```java
     @Step
@@ -141,8 +141,11 @@ http://www.slideshare.net/wakaleo/serenity-and-the-journey-pattern).
 
 1. Refactor the initial tests using the Journey pattern.
 
+---
+
 That's it! Thanks for your time :-)
+
 
 We hope you enjoyed it,
 
-The Serenity Team
+Serenity Team
