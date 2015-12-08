@@ -64,7 +64,7 @@ Open the `add_new_todos.feature` file to work on the `Record a new todo action f
     }
     ```
 
-1. Next add the `adds_an_action_called()` method in the `ATodoUser` class: 
+1. Next, add the `adds_an_action_called()` method in the `ATodoUser` class: 
 
     ```java
     @Step
