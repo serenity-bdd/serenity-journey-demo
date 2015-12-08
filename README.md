@@ -44,18 +44,12 @@ To follow this exercise, you will need to install the following on your machine:
 
 ### Exercise 2 - Record a new todo action for future use
 
-Open the `add_new_todos.feature` file to work on the `Record a new todo action for future use scenario`
+Open the `add_new_todos.feature` file to work on the `Record a new todo action for future use` scenario
 
-1. The first step, `I need to buy some milk` is already implemented in the `RecordTodoStepDefinitions` class:
+1. The first step, `I need to buy some milk` is already implemented in the `RecordTodoStepDefinitions` class.
 
-    ```java
-    @Given("^I need to (?:.*)$")
-    public void i_need_to_add_a_new_task() throws Throwable {
-        jane.opens_the_todo_application();
-    }
-    ```
-
-1. The implementation of the second step: `I add the todo action 'Buy some milk'` is missing and you'll need to add it in:
+1. The implementation of the second step (`I add the todo action 'Buy some milk'`) is missing
+and you'll need to add it to the `RecordTodoStepDefinitions` class:
 
     ```java
     @When("^I add the todo action '(.*)'$")
@@ -73,7 +67,7 @@ Open the `add_new_todos.feature` file to work on the `Record a new todo action f
     }
     ```
 
-1. In the `TodoPage` class, implement the `addAnActionCalled()` method:
+1. Moving further down the stack, implement the `addAnActionCalled()` method in the `TodoPage` class:
 
     ```java
     public void addAnActionCalled(String actionName) {
