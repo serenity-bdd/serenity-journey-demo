@@ -20,8 +20,8 @@ public class RecordTodoStepDefinitions {
         jane.has_added_actions_called(actionName);
     }
 
-    @Then("^'(.*)' should (?:appear|be recorded) in my todo list$")
-    public void action_should_appear_in_my_todo_list(String action) throws Throwable {
+    @Then("^'(.*)' should be recorded in my todo list$")
+    public void action_should_be_recorded_in_my_todo_list(String action) throws Throwable {
         jane.should_see_the_todo_action(action);
     }
 
@@ -34,5 +34,4 @@ public class RecordTodoStepDefinitions {
     public void should_see_remaining_todo_count(int count) {
         jane.should_see_remaining_todo_count_of(count);
     }
-
 }

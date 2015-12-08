@@ -1,21 +1,13 @@
-# Serenity Tutorial
+# Serenity Exercise
 
-A simple demonstration project using Serenity with Cucumber and JUnit, running tests against the http://todomvc.com/examples/angularjs/#/ application.
-
-The project runs using JDK 1.8 and Maven. To run the demo, run:
-
-```
-mvn clean verify
-```
-
-The Serenity reports will be generated in the `target/site/serenity` directory.
-
-Below are some exercises to learn to use the library.
+This exercise will introduce you to the [Serenity library](http://www.thucydides.info/) and let you experiment with
+writing acceptance tests exercising a simple [To-do List App](http://todomvc.com/examples/angularjs/#/)
+using [Cucumber](https://cucumber.io/).
 
 ## Pre-requesites
 
-To follow this this tutorial, you will need to install the following on your machine:
-- JDK 7
+To follow this exercise, you will need to install the following on your machine:
+- JDK 1.7
 - Maven 3.x
 - Git
 - A Java IDE (IntelliJ or Eclipse)
@@ -23,94 +15,94 @@ To follow this this tutorial, you will need to install the following on your mac
 
 ## Setting up the project
 
-1. Clone the project from Github and checkout the `tutorial` branch:
+1. Clone the project from Github and checkout the `serenity-test` branch:
 
-    $ git clone git@github.com:serenity-bdd/serenity-journey-demo.git
-    $ git checkout serenity-test
+    ```console
+    git clone git@github.com:serenity-bdd/serenity-journey-demo.git
+    git checkout serenity-test
+    ```
     
 2. Run the project using Maven from the command line to download the dependencies:
 
-    $ mvn clean verify
+    ```console
+    mvn clean verify
+    ```
 
-    There should be 10 pending and 1 failing test
+    There should be **9 pending** and **1 failing** test
 
+3. Have a look at the test report generated in the following directory:
 
-### Exercise 1 - Record a new todo action for future use
+    `target/site/serenity`
 
-1. Review and complete the implementation of the `The number of remaining todos should be visible` scenario in the `add_new_todos.feature`
+## Part 1: The "Page Objects" approach
+
+### Exercise 1 - Review the existing implementation
+
+1. Review the implementation of the `The number of remaining todos should be visible` scenario in the `add_new_todos.feature`
+
+2. Complete the implementation so that the test passes.
 
 ### Exercise 2 - Record a new todo action for future use
 
-1. Open the `add_new_todos.feature` file to work on the `Record a new todo action for future use` scenario. Implement the `I need to buy some milk` method:
+Open the `add_new_todos.feature` file to work on the `Record a new todo action for future use` scenario
 
-        @Given("^I need to (?:.*)$")
-        public void i_need_to_add_a_new_task() throws Throwable {
-            jane.opens_the_todo_application();
-        }
+1. The first step, `I need to buy some milk` is already implemented in the `RecordTodoStepDefinitions` class.
 
-2. In the `RecordTodoStepDefinitions` class, implement the “When I add the todo action”  step definition
+1. The implementation of the second step (`I add the todo action 'Buy some milk'`) is missing
+and you'll need to add it to the `RecordTodoStepDefinitions` class:
 
-        @When("^I (?:add|have added) the todo action '(.*)'$")
-        public void i_add_the_todo_action(String actionName) throws Throwable {
-            jane.adds_an_action_called(actionName);
-        }
+    ```java
+    @When("^I add the todo action '(.*)'$")
+    public void i_add_the_todo_action(String actionName) throws Throwable {
+        jane.adds_an_action_called(actionName);
+    }
+    ```
 
-3. In the `ATodoUser` class, add the `adds_an_action_called()` method: 
+1. Next, add the `adds_an_action_called()` method in the `ATodoUser` class: 
 
-        @Step
-        public void adds_an_action_called(String actionName) {
-            onTheTodoHomePage.addAnActionCalled(actionName);
-        }
+    ```java
+    @Step
+    public void adds_an_action_called(String actionName) {
+        onTheTodoHomePage.addAnActionCalled(actionName);
+    }
+    ```
 
-4. In the `TodoHomePage` class, implement the `addAnActionCalled()` method:
+1. Moving further down the stack, implement the `addAnActionCalled()` method in the `TodoPage` class:
 
-        public void addAnActionCalled(String actionName) {
-           // TODO: Implement me
-        }
+    ```java
+    public void addAnActionCalled(String actionName) {
+       // TODO: Implement me
+    }
+    ```
 
-5. In the `RecordTodoStepDefinitions` class, implement “Should appear in my todo list” 
+1. Run `mvn clean verify` and review the report in `target/site/serenity`
 
-        @Then("^'(.*)' should (?:appear|be recorded) in my todo list$")
-        public void action_should_appear_in_my_todo_list(String action) throws Throwable {
-            jane.should_see_the_todo_action(action)
-        }
-
-6. In the `ATodoUser` class, implement the `should_see_the_todo_action()` method:
-
-        @Step
-        public void should_see_the_todo_action(String action) {
-            // TODO: Implement me
-        }
-
-7. Run ```mvn clean verify``` and view the report in ```target/site/serenity```
-
-8. Refactor as appropriate
+1. Refactor as appropriate
 
 ### Exercise 3 - New todos should be marked as Active
 
 1. Open the `add_new_todos.feature` and work on the `New todos should be marked as Active` scenario
 
-2. In the `RecordTodoStepDefinitions` class, implement "'Buy some milk' should be recorded in the Active items" step definition:
+1. Implement the last step of the scenario: `'Buy some milk' should be recorded in the Active items`
 
-        @Then("^'(.*)' should (?:appear|be recorded) in the (.*) items$")
-        public void action_should_appear_the_items_of_status(String action, TodoStatusFilter status) throws Throwable {
-            // TODO: Implement with the step library object and page objects as appropriate
-        }
+1. Run the tests again
 
-3. Run the tests again
+1. Refactor as appropriate
 
 ## Exercise 4 - Complete a todo action
 
 1. Open the `complete_todos.feature` and work on the `Complete a todo action` scenario
 
-2. In the `CompleteTodoStepDefinitions` class, implement "I mark the 'Buy some milk' action as complete":
+1. In the `CompleteTodoStepDefinitions` class, implement "I mark the 'Buy some milk' action as complete":
 
-        @When("^I mark the '(.*)' action as complete$")
-        public void i_mark_the_action_as_complete(String action) throws Throwable {
-            // TODO: Implement with the step library object and page objects as appropriate
-        }
+1. Run the tests again
+
+1. Refactor as appropriate
 
 ## Part 2 - The Journey Pattern
+
+To learn more about the Journey Pattern and its origins check out [this presentation on SlideShare](
+http://www.slideshare.net/wakaleo/serenity-and-the-journey-pattern).
 
 ### Exercise 5 - Display Completed tasks (the journey pattern)
 
@@ -119,7 +111,7 @@ To follow this this tutorial, you will need to install the following on your mac
 1. Review the implementation of the first two steps to see how the Journey pattern is used in these tests.
 
 1. Implement the step definition method for `When Joe consults the Active tasks` step.
-A simple design might use the following layers:
+   A simple design might use the following layers:
    - Define the Cucumber step definition in the `FilterTodoStepDefinitions` class
    - Create a FilterItems task for this step definition to use to click on a given filter type in the filter bar
    - Create a FilterBar class to isolate the locators for the filter bar web elements
@@ -127,18 +119,27 @@ A simple design might use the following layers:
 1. Now implement `Joe's todo list should contain Buy Petrol`
    - Define the Cucumber step definition in the `FilterTodoStepDefinitions` class
    - Create a DisplayedItems question class to find the list of todo items displayed on the screen, and use
-   this question class to form the assertion in the step definition.
+     this question class to form the assertion in the step definition.
 
 ### Exercise 6
 
-1. Open the `delete_a_todo,feature` file
+1. Open the `delete_a_todo.feature` file
 
 1. Implement the missing step definition using the Journey pattern.
 
 ### Exercise 7
 
-1. Specify and implement a test for a requirement that states that todo items should be displayed in chronological order.
+1. Specify and implement a test scenario for a requirement that states that todo items should be displayed in chronological order.
 
 ### Exercise 8
 
 1. Refactor the initial tests using the Journey pattern.
+
+---
+
+That's it! Thanks for your time :-)
+
+
+We hope you enjoyed it,
+
+Serenity Team
